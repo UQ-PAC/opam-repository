@@ -1,0 +1,42 @@
+opam-version: "2.0"
+synopsis: "ASLP connector using marshalling over a Unix socket"
+maintainer: ["ailrst"]
+authors: ["ailrst"]
+license: "BSD-3-Clause"
+homepage: "https://github.com/UQ-PAC/aslp-rpc"
+doc: "https://uq-pac.github.io/aslp-rpc/aslp_client_server_ocaml"
+bug-reports: "https://github.com/UQ-PAC/aslp-rpc/issues"
+depends: [
+  "dune" {>= "3.6"}
+  "ocaml"
+  "mtime"
+  "aches"
+  "asli"
+  "aslp_offline"
+  "lwt"
+  "odoc" {with-doc}
+]
+build: [
+  ["dune" "subst"] {dev}
+  [
+    "dune"
+    "build"
+    "-p"
+    name
+    "-j"
+    jobs
+    "@install"
+    "@runtest" {with-test}
+    "@doc" {with-doc}
+  ]
+]
+dev-repo: "git+https://github.com/UQ-PAC/aslp-rpc.git"
+url {
+  src:
+    "https://github.com/UQ-PAC/aslp-rpc/releases/download/v0.1.4/aslp-rpc-0.1.4.tbz"
+  checksum: [
+    "sha256=c1dc570a480e3704c4f2119c0bc2f5b6b94c65aba5989bbf3493920637d39c35"
+    "sha512=c0050c0358e2d0885a3e68fc342fadcda49ce3f9696104afbd5a51cd5732486ce9e9fb683682f8545b8ed0dc0cd575415c97b00da99671b79f45196fcc2af355"
+  ]
+}
+x-commit-hash: "001b2f954412466fce56c312a9258c3c4698ea6a"
