@@ -32,7 +32,7 @@ jobs:
 
       - name: Build
         run: |
-          opam2web -o website/ opam-repository/
+          opam2web -r "https://uq-pac.github.io/opam-repository" -o website/ opam-repository/
           cp -r ext/* website/ext
 
       - name: Upload artifact
