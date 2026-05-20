@@ -1,0 +1,59 @@
+name: docs
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+permissions: read-all
+
+concurrency:
+  group: deploy-odoc-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-odoc:
+    name: Build opam2web
+    runs-on: ubuntu-latest
+    container: ghcr.io/uq-pac/opam-repository/opam2web:latest
+
+    steps:
+      - name: Checkout template 
+        uses: actions/checkout@v4
+        with: 
+          repository: agle/uqpac-opam2web
+
+      - name: Checkout tree
+        uses: actions/checkout@v4
+        with: 
+          path: 'opam-repository'
+
+      - name: Build
+        run: |
+          opam2web -o website/ opam-repository/
+          cp -r ext/* website/ext
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: website
+
+  deploy-odoc:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/master' }}
+
+    needs: build-odoc
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    permissions:
+      id-token: write
+      pages: write
+
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment
