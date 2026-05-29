@@ -1,0 +1,36 @@
+opam-version: "2.0"
+synopsis: "ASLp RPC libraries"
+maintainer: ["ailrst"]
+authors: ["ailrst"]
+license: "Apache-2.0"
+homepage: "https://github.com/UQ-PAC/aslp-rpc"
+doc: "https://uq-pac.github.io/aslp-rpc/"
+bug-reports: "https://github.com/UQ-PAC/aslp-rpc/issues"
+depends: [
+  "dune" {>= "3.6"}
+  "odoc" {with-doc}
+]
+build: [
+  ["dune" "subst"] {dev}
+  [
+    "dune"
+    "build"
+    "-p"
+    name
+    "-j"
+    jobs
+    "@install"
+    "@runtest" {with-test}
+    "@doc" {with-doc}
+  ]
+]
+dev-repo: "git+https://github.com/UQ-PAC/aslp-rpc.git"
+url {
+  src:
+    "https://github.com/UQ-PAC/aslp-rpc/releases/download/v0.1.5/aslp-rpc-0.1.5.tbz"
+  checksum: [
+    "sha256=6e56df24d36a4532cd7a68df1e6d9eb591c30c0aef12a06c785d1ed2d89b2c9d"
+    "sha512=5cf820479eb092bcc4bf4b4475ec1c59f98f60cfff155974c7e8f8fd7b42593ef104c697d27637303192fa42e8f9c42b9ca2aa92d2d1df34c74e828afd3bc242"
+  ]
+}
+x-commit-hash: "b3cd2aaf73771a3e43a4ee113c174f7fef238cb5"
