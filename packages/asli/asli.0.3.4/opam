@@ -1,0 +1,55 @@
+opam-version: "2.0"
+synopsis: "Interpreter for Arm's Architecture Specification Language (ASL)"
+description: """
+Interpreter for the language ASL that Arm uses to write their ISA specifications.
+
+Currently supports reading/typechecking the specification,
+interactive execution of ASL statements and expressions,
+executing opcodes one at a time,
+loading ELF files and executing Arm binaries.
+"""
+maintainer: ["UQ-PAC"]
+authors: ["UQ-PAC"]
+license: "BSD-3-Clause"
+homepage: "https://github.com/UQ-PAC/aslp"
+bug-reports: "https://github.com/UQ-PAC/aslp/issues"
+depends: [
+  "dune" {>= "2.9"}
+  "ocaml" {>= "4.14"}
+  "menhir" {build}
+  "ott" {build & >= "0.31"}
+  "linenoise"
+  "pprint"
+  "zarith"
+  "z3" {>= "4.8.7"}
+  "alcotest" {with-test}
+  "ppx_blob"
+  "mlbdd"
+  "odoc" {with-doc}
+]
+build: [
+  ["dune" "subst"] {dev}
+  [
+    "dune"
+    "build"
+    "-p"
+    name
+    "-j"
+    jobs
+    "--promote-install-files=false"
+    "@install"
+    "@runtest" {with-test}
+    "@doc" {with-doc}
+  ]
+  ["dune" "install" "-p" name "--create-install-files" name]
+]
+dev-repo: "git+https://github.com/UQ-PAC/aslp.git"
+url {
+  src:
+    "https://github.com/UQ-PAC/aslp/releases/download/0.3.4/asli-0.3.4.tbz"
+  checksum: [
+    "sha256=ade75af324576df379e374df67a2edd78257d639cb8b569939e5c32338733fd8"
+    "sha512=328aadd9afc85047fc032320092b1c817c35a775def6193095164cee4782a426d97d5b7b2da2bcc8e896846dc3eea99a15a8cf1d86168510e478065de652f4a4"
+  ]
+}
+x-commit-hash: "92e4fd949402056e16e3747e66922060be57ecc8"
