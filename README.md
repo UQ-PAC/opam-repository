@@ -50,5 +50,5 @@ dune-release tag
 dune-release distrib
 dune-release publish distrib
 dune-release opam pkg
-dune-release opam submit  --opam-repo=ailrst/opam-repository
+dune-release opam submit  --opam-repo=uq-pac/opam-repository
 ```
